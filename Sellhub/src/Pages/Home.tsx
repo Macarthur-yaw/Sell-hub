@@ -114,7 +114,7 @@ setLoading(true)
     whileHover={{scale:1.01}}
     transition={{duration:1}}
   
-    key={index} className={`${content.id === ind ? '':'hidden'} rounded-md   text-white flex flex-row items-end bg-black   mt-10 shadow-2xl min-w-[85%] lg:max-w-6xl mx-auto `}>
+    key={index} className={`${content.id === ind ? '':'hidden'} rounded-md   text-white flex flex-row items-end bg-black   mt-6 shadow-2xl min-w-[85%] lg:max-w-6xl mx-auto `}>
 <Card title={content.title} content={content.content} subContent={content.subContent}/>
 
       </motion.div>
@@ -132,14 +132,14 @@ setLoading(true)
 
 <div className="flex flex-row px-2 items-center justify-between min-w-[85%] lg:max-w-6xl mx-auto mt-10">
 
-<span className="flex flex-row gap-4">
+{/* <span className="flex flex-row gap-4">
   <button className="bg-gray-100 p-2 rounded-md  ">Price</button>
   <button className="bg-gray-100 p-2 rounded-md ">Color</button>
   <button className="bg-gray-100 p-2 rounded-md ">
     Style 
   </button>
   <button className="bg-gray-100 p-2 rounded-md ">Colour</button>
-</span>
+</span> */}
 
 
 
@@ -152,7 +152,7 @@ setLoading(true)
 </div>
 <div>
 <span className=" ">
-            <h1 className=" font-semibold text-xl mt-6 lg:w-[85%]   mx-auto  px-2">
+            <h1 className=" font-semibold text-xl mt-1 lg:w-[85%]   mx-auto  px-2">
             Today Best Deals!     </h1>
            </span>
 

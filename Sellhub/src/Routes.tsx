@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import SingleProduct from "./Pages/SingleProduct";
 import Home from "./Pages/Home";
-import React, { useEffect } from "react";
+import React, {  useEffect } from "react";
 import Carts from "./Pages/Carts";
 import { Suspense } from "react";
 import { createContext, useState } from "react";
@@ -19,14 +19,21 @@ dataProd?:{
 data:Datatyp[],
 setData:React.Dispatch<React.SetStateAction<Datatyp[]>>
 }
+,showPop?:{
+  show:boolean,
+  setShow:React.Dispatch<React.SetStateAction<boolean>>
+}
 }
 export const PropsContext=createContext<ContextValues | undefined >(undefined)
 export default function RoutePage(){
   const [loading,setLoading]=useState(true)
   const [carts,setCarts]=useState<number[]>([])
   const[data,setData]=useState<Datatyp[]>(Data)
-useEffect(()=>{
+  const[show,setShow]=useState(false)
+ 
 
+useEffect(()=>{
+  
   const timer=setTimeout(() => {
     setLoading(false)
   }, 5000);
@@ -35,10 +42,14 @@ useEffect(()=>{
     clearTimeout(timer)
   }
 },[])
+
 return (
 <>
+        
 
-<PropsContext.Provider value={{cart:{carts,setCarts},dataProd:{data,setData}}}>
+
+
+<PropsContext.Provider value={{cart:{carts,setCarts},dataProd:{data,setData},showPop:{show,setShow}}}>
 
 <Routes>
     <Route element={<Homepage/>}>

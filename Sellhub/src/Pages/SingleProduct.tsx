@@ -8,7 +8,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import {AnimatePresence, motion} from 'framer-motion'
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
- 
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 
 export default function SingleProduct(){
    const {id}= useParams()
@@ -64,12 +64,12 @@ setSelect(1)
   open={add} 
   autoHideDuration={500} 
   onClose={()=>setAdd(!true)}
-  anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
+  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} 
 >
   <Alert
     severity="success"
     variant="filled"
-    sx={{ width: '100%' }}
+    sx={{ width: '100%', backgroundColor: 'black' }}
   >
     You have added an item!
   </Alert>
@@ -81,12 +81,12 @@ setSelect(1)
  </div>
             <div className="flex md:flex-row flex-col md:gap-10 gap-4 items-start mx-auto w-fit md:mt-10 ">
                 <div>
-                <img src={img} className="md:w-[450px] h-[400px] w-[400px] rounded md:h-[450px] p-1 "/>
+                <img src={img} className="md:w-[450px] h-[400px]  min-w-[400px] rounded md:h-[450px] p-1 "/>
                 <div >
 
                   {
                     singleP && (
-        <div className="flex flex-row  gap-[2px] md:gap-1 justify-center md:mt-2  px-1">
+        <div className="flex flex-row  gap-[2px] md:gap-1 justify-start md:mt-2  px-1">
                       <img onClick={()=>changeCurrentPic(singleP.otherImages.image1,1)} src={singleP?.otherImages.image1} 
                       className={`${select === 1 ? 'border-[1px] border-black rounded':''} w-[100px] h-[100px] cursor-pointer`}/>
                       <img onClick={()=>changeCurrentPic(singleP.otherImages.image2,2)} src={singleP?.otherImages.image2} 
@@ -214,8 +214,12 @@ ${singleP?.productDetails.price}.00
         singleP && (
 <button
          onClick={()=>addCarts(singleP.id)}
-         className="border-[1px] flex-1   border-black bg-black rounded text-white md:p-1 p-4 text-lg tracking-wider
-           md:text-[20px] md:w-24 md:flex-1">ADD TO CART</button>
+         className="border-[1px] flex-1 inline-flex justify-start gap-20   border-black bg-black rounded text-white md:p-1 p-4 text-lg tracking-wider
+           md:text-[20px] md:w-24 md:flex-1">
+            <ShoppingCartOutlinedIcon/>
+            
+            ADD TO CART  
+           </button>
         )
       }
          

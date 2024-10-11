@@ -4,6 +4,7 @@ import { PropsContext } from "../Routes";
 import { Add,Remove,DeleteOutlineSharp } from "@mui/icons-material";
 // import { filter } from "framer-motion/client";
 import { useNavigate } from "react-router";
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 type newData = {
   id: number;
   title: string;
@@ -124,6 +125,26 @@ setSumprice(sum)
   return (
     <div className="p-2 bg-slate-150 h-screen">
 
+      {
+        carts.length < 1 && (
+          <div className=" mt-10">
+
+            <span className="text-center flex flex-col gap-4">
+<p className="bg-slate-200 w-fit mx-auto p-4 rounded-full">
+<ShoppingCartOutlinedIcon sx={{fontSize:'40px'}}/>
+</p>
+
+              <h1 className="font-semibold text-3xl">
+                No item in carts 
+              </h1>
+              <h2>
+                Browse our categories and discover our best deals.
+              </h2>
+            </span>
+          </div>
+        )
+      }
+
         {
             cartsitems.map((content,index)=>(
                 <div key={index} className="flex flex-col gap-2 mt-4 border-[1px] bg-white border-white rounded-lg shadow-2xl ">
@@ -173,15 +194,28 @@ setSumprice(sum)
         
              
       <span className="bg-white mt-2">
-                <button 
-                onClick={()=>navigate('/checkout')}
-                className="w-full bg-black font-semibold tracking-widest  text-white p-2 rounded-md shadow-md">
+{carts.length < 1 ?(
+<div className="border-[1px] mt-6 w-fit mx-auto">
+<button 
+onClick={()=>navigate('/')}
+className="w-full bg-black   text-lg     font-semibold tracking-widest  text-white p-2 px-4 rounded-md shadow-md">
 
-                    CHECKOUT ${sumprice && (sumprice)}
+    Start Shopping
+    
+</button>
+</div>
+):(
 
-                    
-                </button>
-            </span>
+<button 
+onClick={()=>navigate('/checkout')}
+className="w-full bg-black font-semibold tracking-widest  text-white p-2 rounded-md shadow-md">
+
+    CHECKOUT ${sumprice && (sumprice)}
+
+    
+</button>
+
+) }                         </span>
           
           
          

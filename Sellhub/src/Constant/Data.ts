@@ -83,7 +83,7 @@ export const Data:Datatyp[]=[
         count:1,
         checked:false,
         productDetails:
-        {name:"Adidas",
+        {name:"Yeezy",
         price:300,
         size:30,
 

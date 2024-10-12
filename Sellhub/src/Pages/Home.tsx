@@ -160,7 +160,7 @@ setLoading(true)
 </div>
 
 
-<div className="mt-10">
+<div className="mt-6">
   <span className="text-center ">
     <h1 className="font-bold md:text-[30px] text-xl tracking-wide">
       Shop Now, Goodlook Later 

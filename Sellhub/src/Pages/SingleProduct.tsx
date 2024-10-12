@@ -143,17 +143,17 @@ ${singleP?.productDetails.price}.00
 
 
 <div className="flex flex-col   mt-4">
- <span className="inline-flex mb-2 gap-1">
+ {/* <span className="inline-flex mb-2 gap-1">
   
   <h1 className="font-medium">Color</h1>
   <h2 className="text-gray-500 font-semibold">
    * White 
   </h2>
    
- </span>
+ </span> */}
  <div >
 
-{
+{/* {
   singleP && (
 <div className="flex flex-row gap-2  items-center justify-start">
     <img onClick={()=>changeCurrentPic(singleP?.otherImages.image1,singleP.id)} src={singleP?.otherImages.image1} className="w-[60px] bg-cover focus:border-[1px] h-[80px] cursor-pointer"/>
@@ -162,7 +162,7 @@ ${singleP?.productDetails.price}.00
          <img onClick={()=>changeCurrentPic(singleP?.otherImages.image2 ,singleP.id)} src={singleP?.otherImages.image2} className="w-[60px] h-[80px] cursor-pointer"/>
      </div>   
   )
-}
+} */}
 
          
          </div>

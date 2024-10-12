@@ -10,11 +10,11 @@ export default function FooterCard(){
                 Bringing you to update Fantastic Footwear
             </h1>
 
-            <h2 className='text-gray-300 text-sm md:text-[15px] pt-4 text-center'>
+            <h2 className='text-gray-300 text-sm md:text-[15px] pt-2 text-center'>
                 View all brands of our collections on Footwear, there is another collection. Please check it out bro. seriously!
             </h2>
          
-         <div className=' w-fit mx-auto pt-4 md:pt-6'>
+         <div className=' w-fit mx-auto pt-2 pb-6 md:pt-6'>
 
          <button className='tracking-tight rounded-2xl font-bold  shadow-md text-sm md:text-[14px] px-4 md:mt-6 p-2 bg-white text-black'>
             More about us

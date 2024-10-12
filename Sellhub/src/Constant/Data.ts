@@ -27,7 +27,7 @@ export type Datatyp={
 export const Data:Datatyp[]=[
     {
         id:1,
-        title:'adidas',
+        title:'Nike Air Force max',
         imageUrl:AirJordan1,
         count:1,
         checked:false,
@@ -44,7 +44,7 @@ export const Data:Datatyp[]=[
     },
     {
         id:2,
-        title:'yeezy',
+        title:'NIKE AIR MAX ULTRA LOW',
         imageUrl:AirJordan2,
         count:1,
         checked:false,
@@ -61,7 +61,7 @@ export const Data:Datatyp[]=[
     }
     ,{
         id:3,
-        title:'jordan 1',
+        title:'Air jordan retro',
         imageUrl:newBalance,
         count:1,
         checked:false,
@@ -78,7 +78,7 @@ export const Data:Datatyp[]=[
     },
     {
         id:4,
-        title:'Adidas',
+        title:'Adidas Samba new edition',
         imageUrl:AirJordan4,
         count:1,
         checked:false,

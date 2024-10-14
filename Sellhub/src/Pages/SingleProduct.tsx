@@ -2,10 +2,10 @@ import { useParams } from "react-router"
 import { Data } from "../Constant/Data"
 import {  useEffect, useState,useContext} from "react"
 import { PropsContext } from "../Routes";
-import { FaStar,FaStarHalf
- } from "react-icons/fa"
+// import { FaStar,FaStarHalf
+//  } from "react-icons/fa"
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import {AnimatePresence, motion} from 'framer-motion'
+// import {AnimatePresence, motion} from 'framer-motion'
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
@@ -80,64 +80,57 @@ setSelect(1)
   
  </div>
             <div className="flex md:flex-row flex-col md:gap-10 gap-4 items-start mx-auto w-fit md:mt-10 ">
-                <div>
+                <div className="relative">
                 <img src={img} className="md:w-[450px] h-[400px]  min-w-[400px] rounded md:h-[450px] p-1 "/>
-                <div >
-
-                  {
+                {
                     singleP && (
-        <div className="flex flex-row  gap-[2px] md:gap-1 justify-start md:mt-2  px-1">
+        <div className="flex flex-row absolute bottom-0 md:block gap-[2px] md:gap-1 justify-start md:mt-2  px-1">
                       <img onClick={()=>changeCurrentPic(singleP.otherImages.image1,1)} src={singleP?.otherImages.image1} 
-                      className={`${select === 1 ? 'border-[1px] border-black rounded':''} w-[100px] h-[100px] cursor-pointer`}/>
+                      className={`${select === 1 ? 'border-[1px]  border-black rounded':''} w-[80px] h-[80px] cursor-pointer`}/>
                       <img onClick={()=>changeCurrentPic(singleP.otherImages.image2,2)} src={singleP?.otherImages.image2} 
-                      className={`${select === 2 ? 'border-[1px] border-black rounded':''} w-[100px] h-[100px] cursor-pointer`}/>
+                      className={`${select === 2 ? 'border-[1px] border-black rounded':''} w-[80px] h-[80px] cursor-pointer`}/>
                     
              </div>        
                     )
                   }
-    
-      
-      
-        </div>
        
 
                 </div>
         {/* <h1>{singleP?.title}</h1> */}
         <span className={`${hidden ? 'flex flex-col relative':' grid grid-cols-1'}   gap-1 p-1`}>
 
-<AnimatePresence>
+{/* <AnimatePresence>
 {
   hidden && (
-    <motion.div
-    initial={{y:-20,opacity:0}}
-    animate={{y:0,opacity:1}}
-    transition={{duration:0.05}}
-    exit={{opacity:0,y:-20}}
-    className="relative"
-    >
-    <span>
+    <motion.div */}
+    <div className="relative">
+  
+ 
+ 
+    <span >
+      <span className="inline-flex flex-row justify-between">
 <h1 className="font-bold md:text-[20px]">
 {singleP?.productDetails.name} SAMBA
 
 </h1>
+<h2>${singleP?.productDetails.price}.00</h2>
+</span>
+
 <span className="inline-flex flex-row items-center gap-2 mb-4 mt-4">
- <div className="flex flex-row items-center gap-2">
+ {/* <div className="flex flex-row items-center gap-2">
  <FaStar/>
   <FaStar/>
   <FaStar/>
 <FaStarHalf/>
   
-  </div>
+  </div> */}
   
 
-  <h2 className="text-gray-500 font-semibold">42 reviews</h2>
+  {/* <h2 className="text-gray-500 font-semibold">42 reviews</h2> */}
   </span>
 
 
-<h2 className=" text-[30px] font-semibold tracking-wide">
-${singleP?.productDetails.price}.00 
-    
-</h2>
+
 </span>
 
 
@@ -200,10 +193,10 @@ ${singleP?.productDetails.price}.00
  </h3>
  </span>
 </div>
-</motion.div>
-  )
-}
-</AnimatePresence>
+</div>
+
+
+
 <p className="underline underline-offset-2" onClick={()=>setHidden(preItem=>!preItem)}>{ hidden ? 'See less':'More details'}</p>
       </span>   
         </div>

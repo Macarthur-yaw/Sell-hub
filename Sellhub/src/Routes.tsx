@@ -52,9 +52,10 @@ return (
 <PropsContext.Provider value={{cart:{carts,setCarts},dataProd:{data,setData},showPop:{show,setShow}}}>
 
 <Routes>
+<Route path='/product/:id' element={<SingleProduct />}/>
     <Route element={<Homepage/>}>
   <Route path="/" element={<Home/>}/>
-  <Route path='/product/:id' element={<SingleProduct />}/>
+  
   <Route path="/carts" element={<Suspense fallback={loading && 'loading...'}>
     {!loading ? <Carts/>: (
     <Stack sx={{ width: '100%', color: 'grey.500',position:"fixed",top:"0" }} spacing={2}>

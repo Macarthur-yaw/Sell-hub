@@ -19,7 +19,7 @@ export const signup=route.post('/',async (req,res)=>{
         res.status(400).send({mesage:'Bad error'})
     } else{
 
-        const{name,email,password}=req.body
+        const{email,password}=req.body
 const findIfTheres=await userModel.find({email:email})
 if(findIfTheres.length >0){
 res.status(400).send({message:'An account with this information already exists'})

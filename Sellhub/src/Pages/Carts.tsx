@@ -1,231 +1,161 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { PropsContext } from "../Routes";
-// import { Data } from "./Constant/Data";
-import { Add,Remove,DeleteOutlineSharp } from "@mui/icons-material";
-// import { filter } from "framer-motion/client";
+import { Add, Close, Remove } from "@mui/icons-material";
 import { useNavigate } from "react-router";
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+
 type newData = {
   id: number;
   title: string;
   imageUrl: string;
-  count:number;
+  count: number;
   productDetails: { name: string; price: number; size: number };
   otherImages: { image1: string; image2: string };
 };
+
 export default function Carts() {
   const [cartsitems, setCartitems] = useState<newData[]>([]);
-const context = useContext(PropsContext);
-const[sumprice,setSumprice]=useState<number>(0)
+  const context = useContext(PropsContext);
+  const [sumprice, setSumprice] = useState<number>(0);
+
   if (!context) {
     throw new Error("context is not defined");
   }
-const navigate=useNavigate()
-  const {carts,setCarts}=context.cart
- const data=context.dataProd?.data
- 
-  function increaseCounter(id:number){
-    console.log(id)
-  setCartitems(prevItems=>prevItems.map(content=>content.id === id ? {...content,count:content.count+1} :content)) 
+
+  const navigate = useNavigate();
+  const { carts, setCarts } = context.cart;
+  const data = context.dataProd?.data;
+
+  function increaseCounter(id: number) {
+    setCartitems(prevItems =>
+      prevItems.map(content =>
+        content.id === id ? { ...content, count: content.count + 1 } : content
+      )
+    );
   }
 
-   function decreaseCounter(id:number){
-const data=cartsitems.map((content)=>content.id ===id ? {...content,count:content.count-1}:content)
-console.log(data)
-setCartitems(data)
-   }
-  const removeCarts=(_id:number)=>{
-  console.log(_id)
-  console.log(carts)
-  const newData=carts.filter(content=>content!==_id)
-
-setCarts(newData)
-    
-    
+  function decreaseCounter(id: number) {
+    setCartitems(prevItems =>
+      prevItems.map(content =>
+        content.id === id && content.count > 1
+          ? { ...content, count: content.count - 1 }
+          : content
+      )
+    );
   }
-  
+
+  const removeCarts = (id: number) => {
+    const newCarts = carts.filter(content => content !== id);
+    setCarts(newCarts);
+  };
+
   const compareAndFind = useCallback(() => {
     const arrayElements: newData[] = [];
+    const obj: { [key: number]: number } = {};
 
-console.log(carts)
-let obj: { [key: number]: number } = {};
-    for (let i = 0; i < carts.length; i++) {
-      const key = carts[i]; 
-    
-  
-     
-      if (!obj[key]) {
-          obj[key] = 0;
-      }
-  
-      obj[key]++; 
-
-
-    }
-  //what do i want to do now
-  //find the element by id and increase the count to the number right 
-for (const x in obj){
-  console.log(obj[x])
-  const filteredElements=data?.filter((content)=>content.id === Number(x))
- const generateNewArray=filteredElements?.map((content)=> ({...content,count:obj[x]}))
-if(generateNewArray){
-  arrayElements.push(...generateNewArray)
-
-}
- 
-}
-console.log(arrayElements)
-//  const {number}=obj
-   
-    setCartitems((prev) => {
-      if (JSON.stringify(prev)
-         !== JSON.stringify(arrayElements)) {
-        return arrayElements;
-      }
-      return prev;
+    carts.forEach(id => {
+      if (!obj[id]) obj[id] = 0;
+      obj[id]++;
     });
-  }, [carts]);
 
-  useEffect(()=>{
-    console.log(cartsitems)
-  let countNumberOf=0
-  let initialValue=cartsitems[0]
-
-  for(let i=0; i<cartsitems.length;i ++){
-    if(initialValue === cartsitems[i]){
-      countNumberOf++
-      console.log(countNumberOf)
+    for (const id in obj) {
+      const filteredElements = data?.filter(content => content.id === Number(id));
+      const newArray = filteredElements?.map(content => ({
+        ...content,
+        count: obj[id],
+      }));
+      if (newArray) arrayElements.push(...newArray);
     }
-    initialValue=cartsitems[i]
-  }
-    const newPrice =cartsitems.map((content)=>content.productDetails.price*content.count)
 
-   const findSum=()=>{
-    let sum=0
-    for(let i=0; i<newPrice.length;i++){
-      sum+=newPrice[i]
+    setCartitems(prev =>
+      JSON.stringify(prev) !== JSON.stringify(arrayElements)
+        ? arrayElements
+        : prev
+    );
+  }, [carts, data]);
 
-    }
-  if(sum>0){
-setSumprice(sum)
-  }
-   }
-   findSum()
-    
-  },[cartsitems])
+  useEffect(() => {
+    let sum = 0;
+    cartsitems.forEach(item => {
+      sum += item.productDetails.price * item.count;
+    });
+    setSumprice(sum);
+  }, [cartsitems]);
 
   useEffect(() => {
     compareAndFind();
-    
-
-    
-    
-  }, [carts]); 
+  }, [carts, compareAndFind]);
 
   return (
-    <div className="p-2 bg-slate-150 h-screen">
-
-      {
-        carts.length < 1 && (
-          <div className=" mt-10">
-
-            <span className="text-center flex flex-col gap-4">
-<p className="bg-slate-200 w-fit mx-auto p-4 rounded-full">
-<ShoppingCartOutlinedIcon sx={{fontSize:'40px'}}/>
-</p>
-
-              <h1 className="font-semibold text-3xl">
-                No item in carts 
-              </h1>
-              <h2>
-                Browse our categories and discover our best deals.
-              </h2>
-            </span>
+    <div className="p-4 min-h-screen">
+      {carts.length < 1 ? (
+        <div className="mt-20 text-center">
+          <div className="bg-slate-200 p-4 rounded-full w-fit mx-auto">
+            <ShoppingCartOutlinedIcon sx={{ fontSize: '40px' }} />
           </div>
-        )
-      }
+          <h1 className="text-3xl font-semibold mt-4">Your cart is empty</h1>
+          <p className="text-gray-600 mt-2">
+            Browse our categories and discover the best deals.
+          </p>
+          <button
+            onClick={() => navigate('/')}
+            className="bg-black text-white mt-6 px-6 py-3 rounded-md font-semibold hover:bg-gray-800 transition"
+          >
+            Start Shopping
+          </button>
+        </div>
+      ) : (
+        <>
+          {cartsitems.map((content, index) => (
+            <div
+              key={index}
+              className="flex flex-row relative  justify-between items-center bg-white rounded-lg border border-gray-100 shadow-sm p-4 mb-6"
+            >
+              <img
+                src={content.imageUrl}
+                alt={content.title}
+                className="w-[150px] h-[150px] object-cover rounded"
+              />
+              <div className="flex-col flex-1 ml-4">
+                <h2 className="text-lg font-semibold">{content.title}</h2>
+                <p className="text-gray-500 mt-1">Yeezy - In stock</p>
+                <p className="text-2xl font-bold mt-2">${content.productDetails.price}</p>
+                <div className="flex items-center gap-6 mt-4 md:mt-0">
+                  <button
+                    onClick={() => decreaseCounter(content.id)}
+                    className="bg-black text-white p-2 rounded-full"
+                  >
+                    <Remove />
+                  </button>
+                  <span className="text-xl font-bold">{content.count}</span>
+                  <button
+                    onClick={() => increaseCounter(content.id)}
+                    className="bg-black text-white p-2 rounded-full"
+                  >
+                    <Add />
+                  </button>
+                </div>
+                <button
+                  onClick={() => removeCarts(content.id)}
+                  className="flex absolute top-1 right-0 items-center"
+                >
+                  <Close />
+                </button>
+              </div>
+            </div>
+          ))}
 
-        {
-            cartsitems.map((content,index)=>(
-                <div key={index} className="flex flex-col gap-2 mt-4 border-[1px] bg-white border-white rounded-lg shadow-2xl ">
-         
-         <div className="flex flex-row justify-start items-start gap-10 px-4  p-2">
-       
-       <img src={content.imageUrl}  className="w-[200px] h-[150px] rounded" />
-       <span className=" flex flex-col gap-1">
-          <h2 className="text-md font-normal ">{content.title}-106 yeezy-Bottom Freezer Double Door Fridge </h2>
-            <p>Yeezy</p>
-            <p className="text-sm text-slate-150">In stock</p>
-            <p className="font-semibold text-2xl">${content.productDetails.price}.00</p>
-         
-         </span>  
-
-</div>     
-<div className="flex flex-row justify-between p-2 px-4">
-
-       <button 
-       onClick={()=>removeCarts(content.id)}
-       className="text-[20px] inline-flex items-center font-semibold">
-        <DeleteOutlineSharp/>
-        Remove</button>  
-         <span className=" flex flex-row gap-10 items-center">
-  
-    <button
-    onClick={()=>decreaseCounter(content.id)}
-    className="bg-black rounded shadow-lg  text-white p-1 md:p-2 border-black"
-    
-    ><Remove/></button>
-  <h1 className="font-semibold text-3xl">
-
-    {content.count < 1 ? '1' :(content.count) }
-  </h1>
-  <button
-  onClick={()=>increaseCounter(content.id)}
-  className="bg-black rounded shadow-lg text-white p-1 md:sp-2 border-black"><Add/></button>  
-</span>
-            </div> 
-
-
-                    </div>
-            ))
-        }
-   
-      <div >
-        
-             
-      <span className="bg-white mt-2">
-{carts.length < 1 ?(
-<div className="border-[1px] mt-6 w-fit mx-auto">
-<button 
-onClick={()=>navigate('/')}
-className="w-full bg-black   text-lg     font-semibold tracking-widest  text-white p-2 px-4 rounded-md shadow-md">
-
-    Start Shopping
-    
-</button>
-</div>
-):(
-
-<button 
-onClick={()=>navigate('/checkout')}
-className="w-full bg-black font-semibold tracking-widest  text-white p-2 rounded-md shadow-md">
-
-    CHECKOUT ${sumprice && (sumprice)}
-
-    
-</button>
-
-) }                         </span>
-          
-          
-         
-
-         
-
-           </div>
-
+          <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 flex justify-between items-center">
+            <h2 className="text-2xl font-bold">Total: ${sumprice}</h2>
+            <button
+              onClick={() => navigate('/checkout')}
+              className="bg-black text-white px-6 py-3 rounded-md font-semibold hover:bg-gray-800 transition"
+            >
+              Checkout
+            </button>
           </div>
-        
-    
+        </>
+      )}
+    </div>
   );
 }

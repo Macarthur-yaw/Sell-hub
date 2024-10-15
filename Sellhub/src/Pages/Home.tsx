@@ -7,56 +7,60 @@ import FooterCard from "../Components/FooterCard";
 import Footer from "../Components/Footer";
 import { PropsContext } from '../Routes';
 
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+// import { PropsContext } from '../Routes';
+
+// import CircularProgress from '@mui/material/CircularProgress';
+// import Box from '@mui/material/Box';
 
 export default function Home(){
+  const context=useContext(PropsContext)
+  const data=context?.dataProd?.data
 const[ind,setInd]=useState<number>(1)
-const[loading,setLoading]=useState(false)
-const[values,setValues]=useState({
-  value:'',
-  price:0,
-  size:0,
-  type:''
-})
-const context=useContext(PropsContext)
-const data=context?.dataProd
-const setData=context?.dataProd?.setData
+
+// const[loading,setLoading]=useState(false)
+// const[values,setValues]=useState({
+//   value:'',
+//   price:0,
+//   size:0,
+//   type:''
+// })
+
+ const setData=context?.dataProd?.setData
 const handleIndex=(index:number)=>{
 setInd(index)
 }
 
-const filterSearch = useCallback(
-  (values: { value: string,price:number,size:number,type:string }) => {
+// const filterSearch = useCallback(
+//   (values: { value: string,price:number,size:number,type:string }) => {
 
-    if (values) {
-const{value,price,size,type}=values
-const numberChanged=Number(price)
-// const sizeChanged=Number(price)
-// console.log(price)
-
-
-if(value || price || size || type){
-  const newData=data?.data.filter((content)=>value ? content.title === value :content || numberChanged ? content.productDetails.price===numberChanged:content )
-//  console.log(newData)
- if(newData){
-  setLoading(true)
- }
-  if (newData && JSON.stringify(newData) !== JSON.stringify(data?.data)) {
-  setData?.(newData);
- }
+//     if (values) {
+// const{value,price,size,type}=values
+// const numberChanged=Number(price)
+// // const sizeChanged=Number(price)
+// // console.log(price)
 
 
-}
+// if(value || price || size || type){
+//   const newData=data?.data.filter((content)=>value ? content.title === value :content || numberChanged ? content.productDetails.price===numberChanged:content )
+// //  console.log(newData)
+//  if(newData){
+//   setLoading(true)
+//  }
+//   if (newData && JSON.stringify(newData) !== JSON.stringify(data?.data)) {
+//   setData?.(newData);
+//  }
 
 
-    //   const newData: Datatyp[] | undefined = data?.data.filter(
-    //     (content) => content.title === values.value);
-    // }
-    }
-  },
-  [data?.data,setData]
-);
+// }
+
+
+//     //   const newData: Datatyp[] | undefined = data?.data.filter(
+//     //     (content) => content.title === values.value);
+//     // }
+//     }
+//   },
+//   [data?.data,setData]
+// );
 
 
 const handleAutomatic=useCallback(()=>{
@@ -66,10 +70,10 @@ const handleAutomatic=useCallback(()=>{
   setInd(index)
 
 },[ind])
-const handleChange=(e:React.ChangeEvent<HTMLSelectElement>)=>{
-  setLoading(false)
-setValues({...values,[e.target.name]:e.target.value})  
-}
+// const handleChange=(e:React.ChangeEvent<HTMLSelectElement>)=>{
+//   setLoading(false)
+// setValues({...values,[e.target.name]:e.target.value})  
+// }
 useEffect(()=>{
   const intervalId=setInterval(()=>{
  // console.log('hello')
@@ -89,14 +93,33 @@ setInd(1)
  
 },[handleAutomatic,ind])  
  
-useEffect(()=>{
-setLoading(true)
-  filterSearch(values)
-  if(values){
-  }
-  console.log(values)
+// useEffect(()=>{
+// setLoading(true)
+//   filterSearch(values)
   
-},[filterSearch,values,data])
+  
+// },[filterSearch,values,data])
+
+function changeSneaker(Title:string){
+  const lowerLetters=Title.toLowerCase().trim()
+  
+  
+ 
+  
+  const results= data?.filter((content)=>content.productDetails.name.toLowerCase() ===lowerLetters)
+
+  
+
+
+if(results){
+  setData?.(results)
+}
+
+
+
+}
+
+
   return (
 <>
 
@@ -172,8 +195,8 @@ setLoading(true)
   </span>
 
 
-  <span className=" mt-4 w-full flex flex-row sm:gap-4 gap-2  justify-center  ">
-  
+  <span className=" mt-4   overflow-x-scroll py-4 px-2 flex flex-row  sm:gap-4 gap-6    ">
+  {/*
     <select
    name='value'
     onChange={handleChange}
@@ -212,17 +235,31 @@ setLoading(true)
    
     </select> 
     
-    {/* <Link to='/carts'>Carts</Link> */}
+     <Link to='/carts'>Carts</Link> */}
+
+
+<button className='px-6  border-[1px] 
+ border-black text-xl rounded-full'
+ onClick={()=>changeSneaker('adidas')}
+ >Adidas</button>
+ 
+<button
+onClick={()=>changeSneaker('yeezy')}
+className='px-6    border-[1px] border-black text-2xl rounded-full'>Nike</button>
+<button className='px-6   border-[1px] border-black text-xl rounded-full' >New Balance</button>
+
+<button className='px-6   border-[1px] border-black text-xl rounded-full' >Air Jordan</button>
+
   </span>
 </div>
 
 <div>
-  {!loading &&(<div >
+  {/* {!loading &&(<div >
 
     <Box sx={{ display: 'flex',justifyContent:'center',marginTop:'4%' }}>
       <CircularProgress color='inherit' size={20} />
     </Box>
-  </div>)}
+  </div>)} */}
  
 <Product/>
 <Product/>

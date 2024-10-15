@@ -1,61 +1,110 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import { useNavigate } from 'react-router'
-import GoogleIcon from '@mui/icons-material/Google'
-import AppleIcon from '@mui/icons-material/Apple'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from 'react-router';
+import GoogleIcon from '@mui/icons-material/Google';
+import AppleIcon from '@mui/icons-material/Apple';
+import {useForm} from 'react-hook-form'
+import { useState } from 'react';
+import axios from 'axios';
+export default function Login() {
+  const navigate = useNavigate();
+ const[next ,setNext]=useState(false)
+  const {register,handleSubmit,watch}=useForm()
+  return (
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      
+   
+      <div 
+        onClick={() => navigate(-1)} 
+        className='mt-6 p-2 text-2xl cursor-pointer hover:bg-gray-200 transition duration-300 ease-in-out rounded-full w-fit ml-4'
+      >
+        <ArrowBackIcon sx={{ fontSize: '35px' }} />
+      </div>
 
-export default function Login(){
-    const navigate=useNavigate()
-    return (
-<div>
-<div 
-onClick={()=>navigate(-1)}
-className='mt-6 p-2 text-2xl'>
-    <ArrowBackIcon 
-    
-    sx={{fontSize:'35px'}}/>
+      <div className="flex flex-col gap-6 px-6 mt-10 mx-auto max-w-md w-full">
+
+        <div className="text-center flex flex-col justify-between gap-4 mb-6">
+          <h1 className="font-bold tracking-wider text-3xl text-gray-900">
+            Welcome to Sellhub
+          </h1>
+          <h2 className="text-gray-600 text-lg tracking-normal max-w-sm mx-auto">
+            Type your email or phone number to log in or create a Sellhub account.
+          </h2>
+        </div>
+
+        
+            <form 
+            action=''
+            className="flex flex-col gap-6" onSubmit={handleSubmit((data)=>{
+                const url='https://sell-hub.onrender.com/signup'
+            axios.post(url,data).then((response)=>console.log(response.data.message)).catch(error=>console.log(error))
+            })}>
+
+            <input 
+            {...register("email",{required:true})} 
+            className={`${next ? 'hidden':'block'} border-[1px] p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition duration-300 ease-in-out`}
+            placeholder="Email or Mobile Number" 
+          />
+
+
+<button onClick={()=>setNext(true)} className={`${next ? 'hidden':'block'}     bg-black rounded-lg text-white p-3 text-xl font-semibold tracking-widest shadow-lg hover:bg-gray-900 transition duration-300 ease-in-out`}>
+Proceed
+</button>
+ {
+    next && (
+
+<div className='flex flex-col gap-6'>
+
+<input 
+            {...register("password")} 
+            className={`${next ?'hidden':'block'}border-[1px] p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition duration-300 ease-in-out`}
+            placeholder="Password" 
+          />
+
+<input type='submit' value='Submit' className={` border-[1px] bg-black text-white p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition duration-300 ease-in-out font-medium text-md`}/>
+
 </div>
-        <div className="flex flex-col gap-2  px-6  mt-10">
-           
-           
-            <span className="text-center flex flex-col justify-between gap-4 mb-2 ">
-                <h1 className="font-semibold tracking-wider text-3xl">
-                    Welcome to Sellhub
-                </h1>
-                <h2 className="text-slate-800 text-lg  tracking-normal max-w-sm mx-auto ">
-                    Type your email or phone number to log in or create a Sellhub account.
-                </h2>
-                </span>
 
-                <span className="flex  flex-col justify-center gap-10 pt-6">
-                    <input type="text" className="border-[1px] p-4 rounded  " placeholder="Email or Mobile Number"/>
-
-                    <button className="bg-black  rounded  border-black text-white p-2 text-xl font-medium tracking-widest shadow-md">Continue</button>
-                </span>
-
-                <span className="text-sm md:text-lg text-center">
-                    By continuing you agree to Sell
-                    <br/>
-                    <a href="" className="underline underline-offset-2">Terms and conditions</a>
-                    </span>
-
-                    <div className="flex flex-col  gap-8 pt-10">
-                        <button className="bg-sky-700 p-2 inline-flex  justify-center items-center gap-2 rounded border-slate-500 font-medium text-xl text-white shadow-md">
-                          
-                            Sign in with Google
-                            <GoogleIcon/>
-                            </button>
-                        <button className="bg-black inline-flex justify-center gap-6  p-2 text-xl rounded font-medium border-black text-white shadow-md">
-                            
-                            Sign in with Apple
-                            <AppleIcon/>
-                            </button>
-                    </div>
-
-                    <span className=" text-center pt-10 flex-1  flex flex-col justify-center  ">
-                        <h1 className="mb-2 font-medium text-sm md:text-md">For further support, you may visit the Help center or contact our customer service team.</h1>
-                        <h2 className="font-semibold mt-6 text-lg ">SellHub &copy; 2023</h2>
-                    </span>
-        </div></div>
-
+       
     )
+ }
+        
+
+            </form>
+       
+
+          
+        
+        <div className="text-center text-sm md:text-lg text-gray-600 mt-4">
+          By continuing, you agree to Sellhub's 
+          <br />
+          <a href="#" className="underline underline-offset-2 hover:text-gray-800 transition duration-300 ease-in-out">
+            Terms and conditions
+          </a>
+        </div>
+
+
+        <div className="flex flex-col gap-4 mt-8">
+          <button className="bg-sky-700 p-3 flex items-center justify-center gap-2 rounded-lg font-semibold text-xl text-white shadow-lg hover:bg-sky-600 transition duration-300 ease-in-out">
+            <GoogleIcon />
+            Sign in with Google
+          </button>
+
+          <button className="bg-black p-3 flex items-center justify-center gap-2 rounded-lg font-semibold text-xl text-white shadow-lg hover:bg-gray-900 transition duration-300 ease-in-out">
+            <AppleIcon />
+            Sign in with Apple
+          </button>
+        </div>
+
+    
+        <div className="text-center text-sm mt-10 flex flex-col items-center justify-center">
+          <p className="text-gray-600">
+            For further support, you may visit the Help center or contact our customer service team.
+          </p>
+          <h2 className="font-semibold text-gray-800 mt-6">
+            SellHub &copy; 2023
+          </h2>
+        </div>
+      </div>
+    </div>
+  );
 }

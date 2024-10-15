@@ -94,7 +94,7 @@ const[hidden,setHidden]=useState(false)
 }
             {
                 show && (
-<div onClick={()=>setShow?.(prevValue=>!prevValue)} className='bg-white fixed inset-0 h-screen w-full z-30'>
+<div onClick={()=>setShow?.(prevValue=>!prevValue)} className='bg-white overflow-none fixed inset-0 h-screen w-full z-40'>
 
 </div>
     
@@ -102,13 +102,13 @@ const[hidden,setHidden]=useState(false)
             }
                 
              <section className={`${show ? 'px-2':'px-2'}`}>    
-                <div onClick={()=>setShow?.(false)} className={`${show ? 'absolute z-30 top-0 right-0 p-2':'hidden'}`}>
+                <div onClick={()=>setShow?.(false)} className={`${show ? 'absolute z-40 top-0 right-0 p-2':'hidden'}`}>
                 <CloseIcon />
                 </div>
                 
                    <div
              onClick={()=>setShow?.(true)}
-             className={`${show ? 'flex flex-col  px-2 absolute z-40 w-[90%] left-1/2   transform -translate-x-1/2 ':'flex flex-row items-center px-2'} `}>
+             className={`${show ? 'flex flex-col  px-2 absolute z-40 w-[90%] left-1/2   transform -translate-x-1/2 ':'flex flex-row items-center px-2'}  `}>
                  <div  onClick={()=> setShow?.(!show)} className={`${show ? 'flex flex-row items-center px-2':' flex flex-row items-center px-2 w-full'} border-[1px] border-black border-opacity-80 rounded-lg`}>
                     <span className=''>
                         <FaSearch  className='text-slate-400'/>

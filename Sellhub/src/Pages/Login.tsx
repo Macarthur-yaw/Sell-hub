@@ -8,7 +8,7 @@ import axios from 'axios';
 export default function Login() {
   const navigate = useNavigate();
  const[next ,setNext]=useState(false)
-  const {register,handleSubmit,watch}=useForm()
+  const {register,handleSubmit}=useForm()
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       

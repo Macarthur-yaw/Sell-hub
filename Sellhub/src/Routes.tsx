@@ -11,6 +11,7 @@ import { Data, Datatyp } from "./Constant/Data";
 import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
 import Checkout from './Pages/Checkout'
+import Signup from "./Pages/Signup";
 interface ContextValues{
 cart:{  carts:number[],
   setCarts:React.Dispatch<React.SetStateAction<number[]>>
@@ -67,6 +68,7 @@ return (
     </Suspense>} />
   </Route>
 <Route path="/login" element={<Login/>}/>
+<Route path='/signup' element={<Signup/>}/>
 <Route path='/checkout' element={<Checkout/>}/>
 </Routes>
 </PropsContext.Provider>

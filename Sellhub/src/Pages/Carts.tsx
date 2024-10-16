@@ -3,7 +3,7 @@ import { PropsContext } from "../Routes";
 import { Add, Close, Remove } from "@mui/icons-material";
 import { useNavigate } from "react-router";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-
+import axios from "axios";
 type newData = {
   id: number;
   title: string;
@@ -32,7 +32,36 @@ export default function Carts() {
         content.id === id ? { ...content, count: content.count + 1 } : content
       )
     );
+
+
+   
   }
+
+  useEffect(()=>{
+    const postCarts=async()=>{
+let getToken;
+const tokens=localStorage?.getItem('token')
+      if(tokens){
+getToken=tokens
+}
+
+console.log(getToken)
+const data={
+  cartsitems
+}
+    if(cartsitems){
+    try {
+      const response=   await axios.post("http://localhost:3000/carts",data,{headers: {Authorization: `Bearer ${getToken}`}})
+    console.log(response)
+        } catch (error) {
+          
+        }
+  }
+  
+}
+postCarts()
+
+  },[cartsitems])
 
   function decreaseCounter(id: number) {
     setCartitems(prevItems =>

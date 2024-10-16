@@ -19,7 +19,7 @@ export const signup=route.post('/',async (req,res)=>{
         res.status(400).send({mesage:'Bad error'})
     } else{
 
-        const{email,password}=req.body
+        const{username,email,password}=req.body
 const findIfTheres=await userModel.find({email:email})
 if(findIfTheres.length >0){
 res.status(400).send({message:'An account with this information already exists'})
@@ -35,12 +35,12 @@ else {
 
         try {
             const getData=new userModel({
-               name:name,
+              name:username,
                email:email,
                password:getDatas
             })   
             await getData.save()
-           res.status(201).send({message:'saved successfully'})
+           res.status(201).send({message:'ok'})
            } catch (error) {
              res.status(500).send({message:'Can not be saved'})
              

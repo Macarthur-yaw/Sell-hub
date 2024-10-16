@@ -5,6 +5,7 @@ import cors from 'cors'
 import { routers } from './Controller/signInController'
 import { connection } from './Model/userConnection'
 import { signup } from './Controller/loginController'
+import { cartRouter } from './Controller/cartController'
 
 
 
@@ -16,6 +17,7 @@ app.use(express.json())
 app.use(cors())
 app.use('/signup',signup)
 app.use('/',routers)
+app.use('/',cartRouter)
 app.get('/',(req,res)=>{
     res.send('hello')
 })

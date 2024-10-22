@@ -12,6 +12,7 @@ import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
 import Checkout from './Pages/Checkout'
 import Signup from "./Pages/Signup";
+import Saved from "./Pages/Saved";
 interface ContextValues{
 cart:{  carts:number[],
   setCarts:React.Dispatch<React.SetStateAction<number[]>>
@@ -66,6 +67,8 @@ return (
   </Stack>
   )}
     </Suspense>} />
+
+    <Route path="/saved" element={<Saved/>}/> 
   </Route>
 <Route path="/login" element={<Login/>}/>
 <Route path='/signup' element={<Signup/>}/>

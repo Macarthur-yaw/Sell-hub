@@ -4,6 +4,7 @@ import { Add, Close, Remove } from "@mui/icons-material";
 import { useNavigate } from "react-router";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import axios from "axios";
+
 type newData = {
   id: number;
   title: string;
@@ -50,6 +51,7 @@ const data={
   cartsitems
 }
     if(cartsitems){
+      console.log(cartsitems)
     try {
       const response=   await axios.post("http://localhost:3000/carts",data,{headers: {Authorization: `Bearer ${getToken}`}})
     console.log(response)

@@ -14,12 +14,17 @@ type FormValues={
  email:string ,
  password:string 
 }
+type ResponseData={
+  message:string,
+  token:string,
+  userName:string
+}
 export default function Login() {
   const navigate = useNavigate();
  const[next ,setNext]=useState(false)
 const [loading,setLoading]=useState(false)
-  const {register,handleSubmit,formState:{errors,isSubmitSuccessful},watch,setError,clearErrors}=useForm<FormValues>()
-  const[message,setMessage]=useState('')
+  const {register,handleSubmit,formState:{errors},watch,setError,clearErrors}=useForm<FormValues>()
+  // const[message,setMessage]=useState('')
  const[errorr,setErrorr]=useState('')
   const handleNext=()=>{
     const email=watch('email')
@@ -48,14 +53,20 @@ try {
   // const url='localhost:3000/signup'
   
  const response=await  axios.post(url,data)
-  const dataResponse= response?.data.token
-// console.log(data)
-console.log(dataResponse)
-if(dataResponse){
-  localStorage.setItem('token',dataResponse)
+ console.log(response.data?.username)
+  const dataResponse:unknown = response.data
+  console.log(dataResponse) 
+  const changeType=dataResponse as  ResponseData
+if(changeType.userName){
+  localStorage.setItem('userName',JSON.stringify(changeType.userName))
 
 }
-  setLoading(false)
+// console.log(changeType.userName)
+  // console.log(data)
+setLoading(false)
+navigate('/')
+// console.log(dataResponse)
+
 
  
 } catch (err) {
@@ -81,7 +92,7 @@ setErrorr(err.response.data.message)
 
   },)
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="h-screen w-full flex flex-col bg-gray-50">
       
    
       <div 
@@ -91,7 +102,7 @@ setErrorr(err.response.data.message)
         <ArrowBackIcon sx={{ fontSize: '35px' }} />
       </div>
 
-      <div className="flex flex-col gap-6 px-6 mt-10 mx-auto max-w-md w-full">
+      <div className="flex flex-col gap-6 px-6 mt-10 mx-auto w-full">
 
         <div className="text-center flex flex-col justify-between gap-4 mb-6">
           <h1 className="font-bold tracking-wider text-3xl text-gray-900">
@@ -166,13 +177,13 @@ setErrorr(err.response.data.message)
   )
 }
 
-{ 
+{/* { 
   message && (
     <div className='text-center uppercase'>
       <h1>{message}</h1>
       </div>
   )
-}
+} */}
 { 
   errorr && (
     <Alert

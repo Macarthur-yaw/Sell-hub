@@ -17,7 +17,18 @@ export default function SingleProduct() {
     const [img, setImg] = useState<string>(`${singleP?.otherImages.image1}`);
     const [numcarts, setNumcarts] = useState<number[]>([]);
     const context = useContext(PropsContext);
+    const[favs,setFavs]=useState<number[]>([])
+const handleFavorites=(id:number | undefined)=>{
+// get the id of the element 
+//add the id to an array if the id of the element is defined 
+//set it to the localStorage Item 
+console.log(id)
+if (id){
+    setFavs(prevValue=>[...prevValue,id])
+}
 
+
+}
     if (!context) {
         throw new Error("context must be provided");
     }
@@ -44,14 +55,19 @@ export default function SingleProduct() {
 
     useEffect(() => {
         setSelect(1);
-    }, []);
+        console.log(favs)
+
+        if(favs){
+            
+        }
+    }, [favs]);
 
     return (
         <div className="mt-4 p-4">
-            <div className="flex md:flex-row flex-col md:gap-10 gap-4 items-start mx-auto w-full md:mt-10">
+            <div className="flex xl:flex-row flex-col md:gap-10 gap-4 items-start mx-auto w-full md:mt-10">
                 <div className="relative">
-                    <img src={img} className="md:w-[450px] h-[400px] min-w-[400px] rounded md:h-[450px]" />
-                    <span className="absolute top-2 right-4">
+                    <img src={img} className="xl:w-[450px] h-[400px] w-screen object-cover rounded md:h-[450px]" />
+                    <span onClick={()=>handleFavorites(singleP?.id)} className="absolute border-2 p-2 top-2 right-4">
                         <FavoriteBorderIcon />
                     </span>
                     <div>

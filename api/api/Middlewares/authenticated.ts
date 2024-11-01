@@ -1,29 +1,32 @@
 import { Request,Response,NextFunction } from "express"
 import dotenv from 'dotenv'
 import jsonwebtoken  from 'jsonwebtoken'
-
-type userType={
-name:string,
-charAt:number,
-charEnd:number
-}
-// dotenv.config('./config/')
 dotenv.config({ path: './config/.env' });
 const {SECRET_KEY}=process.env
 const decodeToken=async (tokenValue:string)=>{
-    let tokenss;
+   
+
+try {
+
+    let tokens;
+
     if(SECRET_KEY){
-        tokenValue && await jsonwebtoken.verify(tokenValue,SECRET_KEY,(err,user)=>{
-        if(user){
-const userData=user as userType
-tokenss=userData
-
+        if(tokenValue){
+            const results=await jsonwebtoken.verify(tokenValue,SECRET_KEY)
+            tokens=results
         }
-     
-        })
     }
-return tokenss    
+return tokens
+    // console.log(tokens)
+} catch (error) {
+    console.log(error)
+}
+}
 
+type payLoad={
+    name:string,
+    iat:number,
+    exp:number
 }
 export const authenticated=async (req:Request,res:Response,next:NextFunction)=>{
 
@@ -35,7 +38,15 @@ export const authenticated=async (req:Request,res:Response,next:NextFunction)=>{
     // console.log(changedGetTokens)
     if(changedGetTokens){
        const name=await decodeToken(changedGetTokens)
-       console.log(name)
+    if(name){
+       const decodedToken= name as payLoad
+// decodedToken &&  req.body = decodedToken.name
+if(decodedToken){
+    req.body=decodedToken.name
+}
+    
+     
+    }
     }
    
 if(!getTokens){

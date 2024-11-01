@@ -2,7 +2,8 @@ import {Schema,model} from "mongoose";
 interface user {
 name:string,
 password:string,
-email:string 
+email:string ,
+carts:[]
 }
 const userSchema=new Schema<user>({
     name:{
@@ -15,6 +16,9 @@ type:String
     password:{
         type:String
  
+    },
+    carts:{
+        type:[]
     }
 })
 

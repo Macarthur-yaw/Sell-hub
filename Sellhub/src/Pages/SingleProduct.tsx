@@ -11,7 +11,7 @@ export default function SingleProduct() {
     const { id } = useParams();
     const [hidden, setHidden] = useState<boolean>(false);
     const [select, setSelect] = useState<number | undefined>(1);
-    const [showSizeOptions, setShowSizeOptions] = useState<boolean>(false); // State for size options
+    const [showSizeOptions, setShowSizeOptions] = useState<boolean>(false); 
     const changeNumber = Number(id);
     const singleP = Data.find((content) => changeNumber === content.id);
     const [img, setImg] = useState<string>(`${singleP?.otherImages.image1}`);
@@ -63,36 +63,41 @@ if (id){
     }, [favs]);
 
     return (
-        <div className="mt-4 p-4">
-            <div className="flex xl:flex-row flex-col md:gap-10 gap-4 items-start mx-auto w-full md:mt-10">
-                <div className="relative">
-                    <img src={img} className="xl:w-[450px] h-[400px] w-screen object-cover rounded md:h-[450px]" />
-                    <span onClick={()=>handleFavorites(singleP?.id)} className="absolute border-2 p-2 top-2 right-4">
+        <div className=" lg:px-[60px] px-[10px] ">
+            <div className=" border p-2 rounded-md mb-2 bg-white md:gap-10 gap-4 items-start mx-auto w-full md:mt-2 mt-4">
+                <div className="flex flex-col xl:flex-row lg:gap-6   w-full h-full ">
+                  <div className="relative xl:w-1/2">
+                    <img src={img} className="xl:w-full object-cover  aspect-square   rounded 2xl:min-h-[750px]" />
+                    <span onClick={()=>handleFavorites(singleP?.id)} className="absolute rounded border-2 p-2 top-2 right-4">
                         <FavoriteBorderIcon />
                     </span>
-                    <div>
-                        {singleP && (
-                            <div className="flex flex-row gap-2 justify-start md:mt-2 px-1">
-                                <img onClick={() => changeCurrentPic(singleP.otherImages.image1, 1)} src={singleP?.otherImages.image1} 
-                                     className={`${select === 1 ? 'border-[1px] border-black rounded' : ''} w-[100px] h-[100px] cursor-pointer bg-white`} />
-                                <img onClick={() => changeCurrentPic(singleP.otherImages.image2, 2)} src={singleP?.otherImages.image2} 
-                                     className={`${select === 2 ? 'border-[1px] border-black rounded' : ''} w-[100px] h-[100px] cursor-pointer bg-white`} />
-                            </div>
-                        )}
                     </div>
-
-                    <span>
-                        <h1 className="font-bold md:text-[20px] text-xl mt-4">
-                            {singleP?.productDetails.name} SAMBA
-                        </h1>
-
-                        <h2 className="text-[28px] mt-2 font-semibold tracking-wide">
-                            ${singleP?.productDetails.price}.00
-                        </h2>
-                    </span>
+               
+                   <div className="flex flex-col-reverse  h-full xl:w-1/2  "> 
+                   <section className="mt-8 p-1 w-full  ">
+                <span>
+                    <h1 className="text-xl tracking-wider">Recommendations</h1>
+                </span>
+                <div className="lg:flex grid grid-cols-2 lg:flex-row min-w-[200px]  gap-2 lg:min-h-[325px]  mt-2 ">
+                    {data?.map((content, index) => (
+                        <div key={index} className="relative cursor-pointer p-2 lg:flex-1  border bg-white rounded-lg">
+                            <img src={content.imageUrl} className="  object-cover aspect-square bg-white"/>
+                            <span className="px-2">
+                                <h1 className="text-lg font-medium">{content.title}</h1>
+                                <h2>Canvas shorts</h2>
+                                <h3 className="mt-4 text-lg tracking-wide">$650</h3>
+                            </span>
+                            <span className="absolute top-4 right-4">
+                                <FavoriteBorderIcon />
+                            </span>
+                        </div>
+                    ))}
                 </div>
+            </section>
 
-                <div className="relative w-full">
+                
+
+                    <div className="relative w-full">
                     <button 
                         onClick={() => setShowSizeOptions(!showSizeOptions)}
                         className="mt-4 border-[1px] border-black bg-black text-white py-2 px-4 rounded w-full"
@@ -142,14 +147,12 @@ if (id){
 
                     <button
                         onClick={() => addCarts(singleP?.id)}
-                        className="mt-6 border-[1px] border-black bg-black text-white py-2 px-4 rounded z-20 w-full sticky bottom-0"
+                        className="mt-6 border-[1px] border-black bg-black text-white py-2 px-4 rounded z-20 w-full "
                     >
                         ADD TO CART
                     </button>
                 </div>
-            </div>
-
-            <span className={`${hidden ? 'flex flex-col relative' : 'grid grid-cols-1'} gap-1 p-1`}>
+                <span className={`${hidden ? 'flex flex-col relative' : 'grid grid-cols-1'} gap-1 p-1`}>
                 <p className="inline-flex justify-between p-1 border-b-[0.2px] pb-2 border-slate-300" onClick={() => setHidden(prev => !prev)}>
                     <span className="text-xl uppercase tracking-wide font-medium text-slate-800">The Details</span>
                     <span>{hidden ? (<ExpandLess />) : (<ExpandMoreIcon sx={{ fontSize: '30px' }} />)}</span>
@@ -178,27 +181,40 @@ if (id){
                     )}
                 </AnimatePresence>
             </span>
+            <div>
+                        {singleP && (
+                            <div className="flex flex-row gap-2 justify-start md:mt-2 px-1">
+                                <img onClick={() => changeCurrentPic(singleP.otherImages.image1, 1)} src={singleP?.otherImages.image1} 
+                                     className={`${select === 1 ? 'border-[1px] border-black rounded' : ''} w-[100px] h-[100px] cursor-pointer bg-white`} />
+                                <img onClick={() => changeCurrentPic(singleP.otherImages.image2, 2)} src={singleP?.otherImages.image2} 
+                                     className={`${select === 2 ? 'border-[1px] border-black rounded' : ''} w-[100px] h-[100px] cursor-pointer bg-white`} />
+                            </div>
+                        )}
+                    
+                    
+                    </div>
 
-            <section className="mt-10 p-1 w-full">
-                <span>
-                    <h1 className="text-xl tracking-wider">Recommendations</h1>
-                </span>
-                <div className="flex overflow-x-scroll gap-4 mt-4">
-                    {data?.map((content, index) => (
-                        <div key={index} className="relative p-2 min-w-[300px] bg-white rounded-lg">
-                            <img src={content.imageUrl} className="h-[300px] object-cover w-full bg-white"/>
-                            <span className="px-2">
-                                <h1 className="text-lg font-medium">{content.title}</h1>
-                                <h2>Canvas shorts</h2>
-                                <h3 className="mt-4 text-lg tracking-wide">$650</h3>
-                            </span>
-                            <span className="absolute top-4 right-4">
-                                <FavoriteBorderIcon />
-                            </span>
-                        </div>
-                    ))}
+                    <span>
+                        <h1 className="font-bold md:text-[20px] text-xl mt-4">
+                            {singleP?.productDetails.name} SAMBA
+                        </h1>
+
+                        <h2 className="text-[28px] mt-2 font-semibold tracking-wide">
+                            ${singleP?.productDetails.price}.00
+                        </h2>
+                    </span>
+
+               
+
+
+                    </div>
                 </div>
-            </section>
+
+                
+            </div>
+
+            
+
         </div>
     );
 }

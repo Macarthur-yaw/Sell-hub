@@ -70,7 +70,7 @@ export default function Navbar() {
 
     return (
         <>
-            <div className='flex flex-row items-center lg:justify-around justify-between max-w-[100%] lg:min-w-[80%] p-3 md:p-4'>
+            <div className='flex flex-row items-center md:justify-between lg:px-[60px] justify-between max-w-[100%]  p-3 md:p-4'>
                 <Link to='/'>
                     <h1 className='font-black text-[22px] tracking-widest'>SHOP</h1>
                 </Link>
@@ -81,7 +81,7 @@ export default function Navbar() {
                     </span>
 
                   
-                    <span className={`relative md:hidden rounded-full p-1 `}>
+                    <span className={`relative rounded-full p-1 `}>
                         <Link to='/carts'>
                             <ShoppingCartOutlinedIcon />
                         </Link>
@@ -183,8 +183,8 @@ export default function Navbar() {
                 </div>
                 <div
              onClick={()=>setShow?.(true)}
-             className={`${show ? 'flex flex-col  px-2 absolute z-40 w-[90%] left-1/2   transform -translate-x-1/2 ':'flex flex-row items-center px-2'}  `}>
-                 <div  onClick={()=> setShow?.(!show)} className={`${show ? 'flex flex-row items-center px-2':' flex flex-row items-center px-2 w-full'} border-[1px] border-black border-opacity-80 rounded-lg`}>
+             className={`${show ? 'flex flex-col   px-2 absolute z-40 w-[90%] left-1/2   transform -translate-x-1/2 ':'flex flex-row items-center px-2'}  `}>
+                 <div  onClick={()=> setShow?.(!show)} className={`${show ? 'flex flex-row items-center px-2':' flex flex-row items-center px-2 w-full'} md:hidden border-[1px] border-black border-opacity-80 rounded-lg`}>
                     <span className=''>
                         <FaSearch  className='text-slate-400'/>
                     </span> <input
